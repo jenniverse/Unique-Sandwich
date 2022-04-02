@@ -1,4 +1,0 @@
-ribbon white #1
-hat white #2
-ribbon buff #3
-hat buff #4

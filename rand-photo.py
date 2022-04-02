@@ -9,6 +9,8 @@ import glob
 accpath = "/Users/jennykim/Desktop/Unique-Sandwich/acc"
 # get random body from folder
 bodypath = "/Users/jennykim/Desktop/Unique-Sandwich/body"
+# get random clothes from folder
+clothespath = "/Users/jennykim/Desktop/Unique-Sandwich/clothes"
 # save path
 savepath = "/Users/jennykim/Desktop/Unique-Sandwich/result"
 
@@ -34,6 +36,7 @@ for i in range(howMany):
     if acc == '.DS_Store':
         continue
     accName = acc[:len(acc) - 4]
+
     # read body
     bodyfiles = os.listdir(bodypath)
     body = random.choice(bodyfiles)
@@ -41,7 +44,15 @@ for i in range(howMany):
         continue
     bodyName = body[:len(body) - 4]
 
-    thisProperty = accName + " " + bodyName
+    # read clothes
+    clothesfiles = os.listdir(clothespath)
+    clothes = random.choice(clothesfiles)
+    if clothes == '.DS_Store':
+        continue
+    clothesName = clothes[:len(clothes) - 4]
+
+    # name the property
+    thisProperty = accName + " " + bodyName + " " + clothesName
 
     # thisProperty would be in [acc body #num] format
     if thisProperty in createdFoxes:
@@ -52,8 +63,10 @@ for i in range(howMany):
 
     acc_image = Image.open("acc/" + acc)
     body_image = Image.open("body/" + body)
+    clothes_image = Image.open("clothes/" + clothes)
 
     body_image.paste(acc_image, (0,0), acc_image)
+    body_image.paste(clothes_image, (0,0), clothes_image)
     body_image.show()
     filename = os.path.join(savepath, "#" + str(startNum + success) + ".png")
     body_image.save(filename)
