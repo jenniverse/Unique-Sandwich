@@ -1,3 +1,4 @@
+from genericpath import exists
 from sre_constants import SUCCESS
 from PIL import Image, ImageFilter
 import random
@@ -15,7 +16,7 @@ clothespath = "/Users/jennykim/Desktop/Unique-Sandwich/clothes"
 savepath = "/Users/jennykim/Desktop/Unique-Sandwich/result"
 
 # the max number of files it can create
-howMany = 10
+howMany = 5000
 # start numbering from this number (should be the last file #)
 startNum = 0
 # for txt file
@@ -67,9 +68,13 @@ for i in range(howMany):
 
     body_image.paste(acc_image, (0,0), acc_image)
     body_image.paste(clothes_image, (0,0), clothes_image)
-    body_image.show()
+    # body_image.show()
     filename = os.path.join(savepath, "#" + str(startNum + success) + ".png")
+    while exists(filename):
+        startNum += 1
+        filename = os.path.join(savepath, "#" + str(startNum + success) + ".png")
     body_image.save(filename)
+
 else:
     print("Done!")
     with open('properties.txt', 'a') as f:
